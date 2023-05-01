@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct SpeciesListView: View {
+    let speciesName = ["Hutt", "Ewok", "Wookiee", "Droid", "Human"]
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack {
+                List {
+                    ForEach(speciesName, id: \.self) { specie in
+                        Text(specie)
+                    }
+                }
+            }
+            .listStyle(.plain)
+            .font(.title)
+            .navigationTitle("Species")
         }
-        .padding()
     }
 }
 
