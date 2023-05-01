@@ -12,12 +12,8 @@ struct SpeciesListView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                List {
-                    ForEach(speciesName, id: \.self) { specie in
-                        Text(specie)
-                    }
-                }
+            List(speciesName, id: \.self) { species in
+                Text(species)
             }
             .listStyle(.plain)
             .font(.title)
