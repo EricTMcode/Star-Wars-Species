@@ -32,7 +32,7 @@ class SpeciesViewModel: ObservableObject {
             do {
                 let returned = try JSONDecoder().decode(Returned.self, from: data)
                 urlString = returned.next ?? ""
-                speciesArray = returned.results
+                speciesArray += returned.results
                 isLoading = false
             } catch {
                 print("😡 JSON ERROR: Could not convert data into JSON. \(error.localizedDescription)")
@@ -44,4 +44,10 @@ class SpeciesViewModel: ObservableObject {
         }
     }
     
+    func loadNextIfNeeded(species: Species) async {
+        guard let lastSpecies = speciesArray.last else { return }
+        if lastSpecies.id == species.id && urlString != "" {
+            await getData()
+        }
+    }
 }
