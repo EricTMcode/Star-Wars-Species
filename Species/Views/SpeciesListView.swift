@@ -30,6 +30,11 @@ struct SpeciesListView: View {
                         .tint(.green)
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .status) {
+                    Text("\(speciesVM.speciesArray.count) Species Returned")
+                }
+            }
         }
         .task {
             await speciesVM.getData()
