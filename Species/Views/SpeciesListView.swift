@@ -39,6 +39,14 @@ struct SpeciesListView: View {
                 ToolbarItem(placement: .status) {
                     Text("\(speciesVM.speciesArray.count) Species Returned")
                 }
+                
+                ToolbarItem(placement: .bottomBar) {
+                    Button("Load all") {
+                        Task {
+                            await speciesVM.loadAll()
+                        }
+                    }
+                }
             }
         }
         .task {

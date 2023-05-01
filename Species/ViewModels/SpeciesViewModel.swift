@@ -50,4 +50,10 @@ class SpeciesViewModel: ObservableObject {
             await getData()
         }
     }
+    
+    func loadAll() async {
+        guard urlString != "" else { return }
+        await getData()
+        await loadAll()
+    }
 }
