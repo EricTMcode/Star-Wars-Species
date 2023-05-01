@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  SpeciesListView.swift
 //  Species
 //
 //  Created by Eric on 01/05/2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct SpeciesListView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -19,8 +19,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct SpeciesListView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        SpeciesListView()
     }
 }
