@@ -76,9 +76,32 @@ struct DetailView: View {
             }
             .font(.title2)
             
+            VStack {
+                AsyncImage(url: URL(string: returnSpeciesURL())) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .cornerRadius(15)
+                        .shadow(radius: 15)
+                        .animation(.default, value: image)
+                } placeholder: {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .scaledToFit()
+                }
+            }
+            .frame(maxWidth: .infinity)
+            
             Spacer()
         }
+        .navigationBarTitleDisplayMode(.inline)
         .padding()
+    }
+    
+    func returnSpeciesURL() -> String {
+        var newName = species.name.replacingOccurrences(of: " ", with: "-")
+        newName = newName.replacingOccurrences(of: "'", with: "")
+        return "https://gallaugher.com/wp-content/uploads/2023/04/\(newName).jpg"
     }
 }
 
