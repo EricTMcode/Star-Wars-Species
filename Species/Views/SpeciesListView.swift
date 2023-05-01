@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import AVFAudio
 
 struct SpeciesListView: View {
     @StateObject var speciesVM = SpeciesViewModel()
+    @State private var audioPlayer: AVAudioPlayer!
+    @State private var lastSound = -1
     
     var body: some View {
         NavigationStack {
@@ -47,10 +50,38 @@ struct SpeciesListView: View {
                         }
                     }
                 }
+                ToolbarItem(placement: .bottomBar) {
+                    Button {
+                        var nextSound: Int
+                        repeat {
+                            nextSound = Int.random(in: 0...8)
+                        } while nextSound == lastSound
+                        lastSound = nextSound
+                        playSound(soundName: "\(lastSound)")
+                    } label: {
+                        Image("peek")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 25)
+                    }
+                }
             }
         }
         .task {
             await speciesVM.getData()
+        }
+    }
+    
+    func playSound(soundName: String) {
+        guard let soundFile = NSDataAsset(name: soundName) else {
+            print("😡 ERROR: Could not read file named \(soundName)")
+            return
+        }
+        do {
+            audioPlayer = try AVAudioPlayer(data: soundFile.data)
+            audioPlayer.play()
+        } catch {
+            print("😡 ERROR: \(error.localizedDescription) creating audioPlayer")
         }
     }
 }
