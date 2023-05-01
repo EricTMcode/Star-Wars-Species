@@ -15,13 +15,16 @@ class SpeciesViewModel: ObservableObject {
     }
     
     @Published var speciesArray: [Species] = []
+    @Published var isLoading = false
     var urlString = "https://swapi.dev/api/species/"
     
     func getData() async {
+        isLoading = true
         print("🕸️ We are accessing the url \(urlString)")
         
         guard let url = URL(string: urlString) else {
             print("😡 ERROR: Could not convert \(urlString) to a url")
+            isLoading = false
             return
         }
         do {
@@ -30,11 +33,14 @@ class SpeciesViewModel: ObservableObject {
                 let returned = try JSONDecoder().decode(Returned.self, from: data)
                 urlString = returned.next ?? ""
                 speciesArray = returned.results
+                isLoading = false
             } catch {
                 print("😡 JSON ERROR: Could not convert data into JSON. \(error.localizedDescription)")
+                isLoading = false
             }
         } catch {
             print("😡 ERROR: Could not get data from urlString \(urlString)")
+            isLoading = false
         }
     }
     
