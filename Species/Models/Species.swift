@@ -27,4 +27,6 @@ struct Species: Identifiable, Codable {
         case hairColors = "hair_colors"
         case eyeColors = "eye_colors"
     }
+    
+    static let example = Species(name: "Swifter", classification: "Coder", designation: "sentient", averageHeight: "175", averageLifespan: "83", language: "Swift", skinColors: "various", hairColors: "none", eyeColors: "blue, green, brown, gray, or violet")
 }
